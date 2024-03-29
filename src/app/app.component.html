@@ -1,5 +1,5 @@
 
-<div class="container" [class.is-mobile]="mobileQuery.matches">
+<div class="container-nav" [class.is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="toolbar">
     <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
     <h1 class="app-name">FeepWeb</h1>
@@ -10,9 +10,6 @@
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list *ngFor="let menu of menus">
         <a mat-list-item [routerLink]="[menu.path]">{{menu.title}}</a>
-        <!-- @for (menu of menus; track menu) {
-       
-        } -->
       </mat-nav-list>
     </mat-sidenav>
 

@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ParticipantResponse } from '../model/paticipant';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-participant-search',
@@ -10,8 +11,35 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ParticipantSearchComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['code', 'name', 'cpfCnpj', 'phoneNumber'];
+  displayedColumns: string[] = ['select','code', 'name', 'cpfCnpj', 'phoneNumber'];
   dataSource = new MatTableDataSource<ParticipantResponse>(participants);
+
+  selection = new SelectionModel<ParticipantResponse>(true, []);
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+ /*  checkboxLabel(row?: ParticipantResponse): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  } */
 
   constructor(
     private route: ActivatedRoute,
