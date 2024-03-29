@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ParticipantResponse } from '../model/paticipant';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ParticipantService } from '../../services/participant-service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-participant-search',
@@ -43,7 +45,10 @@ export class ParticipantSearchComponent implements AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private http : HttpClient
+    //private service: ParticipantService
+    ) {
   }
 
 
@@ -51,11 +56,14 @@ export class ParticipantSearchComponent implements AfterViewInit {
   }
 
   goToManager(code?: number) {
-    if (code) {
+    this.http.get('http://localhost:8081/participant/find-by-id?code=1')
+           .subscribe(resultado => console.log(resultado));
+    //this.service.get(code);
+   /*  if (code) {
       return this.router.navigate([ 'participant', 'manager', code]);
     }
 
-    return this.router.navigate([ 'participant', 'manager']);
+    return this.router.navigate([ 'participant', 'manager']); */
   }
 
   changePage(event: Event) {

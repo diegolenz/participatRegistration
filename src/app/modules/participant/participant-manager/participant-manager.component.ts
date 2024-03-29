@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { genderTypes, EnumType } from '../model/enum';
+import { genderTypes, maritalTypes, EnumType } from '../model/enum';
 
 @Component({
   selector: 'app-participant-manager',
@@ -12,6 +12,7 @@ export class ParticipantManagerComponent {
   form: FormGroup;
   loading: boolean = false;
   genders: EnumType[];
+  maritals: EnumType[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,6 +30,9 @@ export class ParticipantManagerComponent {
       phoneNumber: [null, Validators.required],
       cpfCnpj: [null],
       gender: [null],
+      marital: [null],
+      document: [null],
+      spouse: [null],
       notAplicateCnpjCpf: [null, Validators.required],
       tokenSms: [null, Validators.required],
       exposedPerson: [null],
@@ -36,6 +40,7 @@ export class ParticipantManagerComponent {
     });
 
     this.genders = genderTypes;
+    this.maritals = maritalTypes;
   }
 
   onBack() {
